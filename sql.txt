@@ -1,0 +1,17 @@
+﻿CREATE TABLE IF NOT EXISTS `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `name` text COLLATE utf8_unicode_ci,
+  `message` text COLLATE utf8_unicode_ci,
+  `date` timestamp NOT NULL DEFAULT now(),
+   PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `comment` (`id`, `parent_id`, `name`, `message`) VALUES
+(1, 0, 'John', 'Nice'),
+(2, 0, 'Nick', 'Good'),
+(3, 0, 'Sara', 'The Best'),
+(4, 0, 'Sonya', 'Bad'),
+(5, 2, 'Sonya', '++++'),
+(6, 2, 'John', 'Yeee'),
+(7, 5, 'Nick', '----');
