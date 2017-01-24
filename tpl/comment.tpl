@@ -11,6 +11,6 @@ if($is_admin)
 <br/>
 <b>Message</b>: <?=$comment['message']; ?> 
 <?php if($level < $max_comments_level-1) { ?>
-<br/><a href="#">Answer</a>
+<br/><a href="#add_comment" onClick="setParentId(<?=$comment['id']; ?>)">Answer</a>
 <?php } ?>
 </div>
