@@ -5,5 +5,5 @@
 		<link rel="stylesheet" href="/tpl/style.css" type="text/css" />
 	</head>
 	<body>
-        <div class="all">
+		<div class="all">
 			<div class="head"><i><?=$title; ?></i></div>
