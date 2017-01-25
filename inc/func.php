@@ -135,4 +135,19 @@ function checkCommentLevel($id){
     return 1+checkCommentLevel($parent_id);
 }
 
+/**
+ * Проверка существования комментария
+ *
+ * @param Integer $id - id комментария
+ * @return Boolean - существует ли
+ */
+function isExistComment($id){
+    $comment = getComment($id);
+
+    if(isset($comment['id'])){
+        return true;
+    }
+    return false;
+}
+
 
