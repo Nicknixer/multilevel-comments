@@ -3,15 +3,19 @@
 include '/inc/autoload.php';
 
 $id_to_answer = trim(htmlspecialchars($_GET['id']));
-
-//
-// Здесь имеется уязвимость
-// Мы можем перейти к ответу на комментарий 5+ уровня,
-// достаточно лишь перейти по адресу /answer.php?id={id коомментария 5+ уровня}
-//
-
 $errors = '';
 $is_answered = false;
+
+/**
+ * Проверка на уязвимость
+ * Мы могли бы перейти к ответу на комментарий уровня $max_comments_level
+ * достаточно лишь перейти по адресу /answer.php?id={id коомментария последнего уровня}
+ */
+
+if(checkCommentLevel($id_to_answer) >= $max_comments_level-1){
+    $echo = 'Данный комментарий комментировать запрещено!';
+    exit;
+}
 
 if(isset($_POST['ok'])) {
 	$msg_to_save = trim(htmlspecialchars($_POST['message']));
@@ -26,6 +30,7 @@ if(isset($_POST['ok'])) {
 		$is_answered = true;
     }
 }
+
 if(!$is_answered){
     $comment = getComment($id_to_answer);
 	$name = $comment['name'];

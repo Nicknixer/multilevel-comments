@@ -121,4 +121,18 @@ function getComment($id){
     return $rows->fetch();
 }
 
+/**
+ * Проверка уровня вложенности комментария
+ *
+ * Самый верхний уровень комментария - 0
+ *
+ * @param Integer $id - id комментария
+ * @return Integer - уровень вложенности
+ */
+function checkCommentLevel($id){
+    $parent_id = getComment($id)['parent_id'];
+    if($parent_id == 0) return 0;
+    return 1+checkCommentLevel($parent_id);
+}
+
 
