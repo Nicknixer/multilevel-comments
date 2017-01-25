@@ -86,6 +86,21 @@ function addComment($name, $message, $parent_id = 0) {
 }
 
 /**
+ * Изменение комментария в БД
+ * @param Integer $id - id
+ * @param String $name - имя комментатора
+ * @param String $message - текст комментария
+ */
+function updateComment($id, $name, $message) {
+    global $pdo;
+    $rows = $pdo->prepare('UPDATE comment SET message=:message, name=:name WHERE id=:id;');
+    $rows->bindParam(':id',$id);
+    $rows->bindParam(':name',$name);
+    $rows->bindParam(':message',$message);
+    $rows->execute();
+}
+
+/**
  * Получение одного комментария
  * @param Integer $id - id комментария
  * @return Array
