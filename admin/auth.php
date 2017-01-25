@@ -1,9 +1,9 @@
-<?php 
-session_start();
+<?php
+
 $is_admin = false;
-if(isset($_COOKIE["pass"]))
+if(isset($_SESSION["pass"]))
 {
-	if($_COOKIE["pass"] == $admin_hash_pass)
+	if($_SESSION["pass"] == $admin_hash_pass)
 	{
 		$is_admin = true;
 	}
