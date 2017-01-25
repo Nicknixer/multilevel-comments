@@ -8,6 +8,7 @@ function getAllComments() {
 	$rows = $pdo->prepare('SELECT * FROM comment');
 	$rows->execute();
 	$comments = $rows->fetchAll();
+    $result = Array();
 	foreach($comments as $comment){
 		$result[$comment["parent_id"]][] = $comment;
 	}
