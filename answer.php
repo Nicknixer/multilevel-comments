@@ -27,14 +27,9 @@ if(isset($_POST['ok'])) {
     }
 }
 if(!$is_answered){
-
-	$rows = $pdo->prepare('SELECT * FROM comment WHERE id=:id');
-	$rows->bindParam(':id',$id_to_answer);
-	$rows->execute();
-	$row = $rows->fetch();
-	$name = $row['name'];
-	$message = $row['message'];
-	
+    $comment = getComment($id_to_answer);
+	$name = $comment['name'];
+	$message = $comment['message'];
 }
 
 $title = "Answering";
