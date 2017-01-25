@@ -20,7 +20,7 @@ function getAllComments() {
  * @param Integer $level - уровень вложености
  */
 function viewComments($parent_id, $level) {
-	global $max_comments_level;
+	global $max_comments_level, $is_admin;
     $comments = getAllComments(); 
     if (isset($comments[$parent_id])) { 
         foreach ($comments[$parent_id] as $comment) { 

@@ -11,7 +11,7 @@ if(!empty($_POST['ok']))
     {
         if($admin_hash_pass == hash("sha256",$_POST['password'],false))
         {
-            $_SESSION["pass"] = $admin_hash_pass;
+            setcookie('pass', $admin_hash_pass, time()+60*60*24, '/');
             $redirect = $_SERVER['SERVER_NAME'];
             $is_success = true;
         }
