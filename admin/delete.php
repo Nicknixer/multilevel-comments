@@ -15,12 +15,9 @@ if($is_admin)
     }
     else
     {
-        $rows = $pdo->prepare('SELECT name, message FROM comment WHERE id=:id');
-        $rows->bindParam(':id',$id_to_delete);
-        $rows->execute();
-        $row = $rows->fetch();
-        $name = $row['name'];
-        $message = $row['message'];
+        $comment = getComment($id_to_delete);
+        $name = $comment['name'];
+        $message = $comment['message'];
         $is_delete = false;
     }
 }

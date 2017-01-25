@@ -46,3 +46,16 @@ function addComment($name, $message, $parent_id = 0) {
     $STH->execute();
 }
 
+/**
+ * Получение одного комментария
+ * @param Integer $id - id комментария
+ * @return Array
+ */
+function getComment($id){
+    global $pdo;
+    $rows = $pdo->prepare('SELECT * FROM comment WHERE id=:id');
+    $rows->bindParam(':id',$id);
+    $rows->execute();
+    return $rows->fetch();
+}
+
