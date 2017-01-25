@@ -13,7 +13,21 @@ function getAllComments() {
 	}
     return $result;
 }
- 
+
+/**
+ * Получение массива со всеми комментариями
+ * Позволяет не делать запрос к БД в каждой ветке рекурсии
+ */
+$comments_array = array();
+function getAllCommentsLink() {
+    global $comments_array;
+    if(empty($comments_array))
+    {
+        $comments_array = getAllComments();
+    }
+    return $comments_array;
+}
+
 /**
  * Вывод дерева комментариев
  * @param Integer $parent_id - id-родителя
@@ -21,14 +35,39 @@ function getAllComments() {
  */
 function viewComments($parent_id, $level) {
 	global $max_comments_level, $is_admin;
-    $comments = getAllComments(); 
+    $comments = getAllCommentsLink();
     if (isset($comments[$parent_id])) { 
         foreach ($comments[$parent_id] as $comment) { 
-			// Жутко, однако логика с представлением немного разделены
+			// Жутко, однако логика с представлением разделены
 			include '/tpl/comment.tpl'; // Выводим с помощью шаблона 
             viewComments($comment["id"], $level+1); // Рекурсивно достаем дочерние комментарии
         }
     }
+}
+
+/**
+ * Удаление дерева комментариев
+ * @param Integer $parent_id - id комментария
+ */
+function deleteCommentTree($parent_id) {
+    $comments = getAllCommentsLink();
+    deleteComment($parent_id);
+    if (isset($comments[$parent_id])) {
+        foreach ($comments[$parent_id] as $comment) {
+            deleteCommentTree($comment['id']); // Рекурсивно удаляем дочерние комментарии
+        }
+    }
+}
+
+/**
+ * Удаление комментария
+ * @param Integer $id - id комментария
+ */
+function deleteComment($id){
+    global $pdo;
+    $STH = $pdo->prepare("DELETE FROM comment WHERE (id = :id) ;");
+    $STH->bindParam(':id',$id);
+    $STH->execute();
 }
 
 /**

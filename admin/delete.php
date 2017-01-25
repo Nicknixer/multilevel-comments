@@ -7,9 +7,7 @@ if($is_admin)
     $id_to_delete = trim($_GET['id']);
     if(isset($_POST['ok']))
     {
-        $STH = $pdo->prepare("DELETE FROM comment WHERE (id = :id) ;");
-        $STH->bindParam(':id',$id_to_delete);
-        $STH->execute();
+        deleteCommentTree($id_to_delete);
         $is_delete = true;
         $redirect = $_SERVER['SERVER_NAME'];
     }
