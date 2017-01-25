@@ -2,14 +2,25 @@
 
 include '/inc/autoload.php';
 
+//
+// Хранит ошибку валидации.
+// Ей всегда нужна инициализация, т.к. используется в шаблоне вывода
+//
 $errors = '';
+
+//
+// Сохраняем переданные данные из формы
+// Заполняем ими форму после неуспешной попытки добавления или обновления страницы
+//
 $msg_after_refresh = isset($_POST['message']) ? $_POST['message'] : '';
 $name_after_refresh = isset($_POST['name']) ? $_POST['name'] : '';
-$isadd = (isset($_POST['add']))? true : false;
+
 
 //
 // Action click on "Add"
 //
+
+$isadd = (isset($_POST['add']))? true : false; // Была ли нажата кнопка "Add"
 
 if($isadd)
 {
@@ -21,12 +32,7 @@ if($isadd)
     elseif ( empty($name_to_save) || (strlen($name_to_save) > 12) ) {
 		$errors = "Enter name! (Max: 12)";
 	} else {
-		//Save message
-		$STH = $pdo->prepare("INSERT INTO comment (name,message) VALUES (:msg,:name);");
-		$STH->bindParam(':msg',$msg_to_save);
-		$STH->bindParam(':name',$name_to_save);
-		$STH->execute();
-		//////////
+        addComment( $name_to_save, $msg_to_save );
 		$msg_after_refresh = '';
 		$name_after_refresh = '';
     }
@@ -40,8 +46,6 @@ if(isset($_POST['refresh']))
     $msg_after_refresh = trim(htmlspecialchars($_POST['message']));
     $name_after_refresh = trim(htmlspecialchars($_POST['name']));
 }
-
-
 
 $title = "Page";
 include '/tpl/header.tpl';

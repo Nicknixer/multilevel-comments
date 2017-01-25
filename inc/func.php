@@ -1,9 +1,8 @@
 <?php
 
-//
-// Получение всех комментариев
-//
-
+/**
+ * Получение всех комментариев
+ */
 function getAllComments() {
 	global $pdo;
 	$rows = $pdo->prepare('SELECT * FROM comment');
@@ -14,8 +13,6 @@ function getAllComments() {
 	}
     return $result;
 }
-
-
  
 /**
  * Вывод дерева комментариев
@@ -33,3 +30,19 @@ function viewComments($parent_id, $level) {
         }
     }
 }
+
+/**
+ * Добавление комментария в БД
+ * @param String $name - имя комментатора
+ * @param String $message - текст комментария
+ * @param Integer $parent_id - id-родителя
+ */
+function addComment($name, $message, $parent_id = 0) {
+    global $pdo;
+    $STH = $pdo->prepare("INSERT INTO comment (name,message,parent_id) VALUES (:name,:message,:parent_id);");
+    $STH->bindParam(':name',$name);
+    $STH->bindParam(':message',$message);
+    $STH->bindParam(':parent_id',$parent_id);
+    $STH->execute();
+}
+

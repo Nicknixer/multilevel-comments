@@ -22,11 +22,7 @@ if(isset($_POST['ok'])) {
     elseif ( empty($name_to_save) || (strlen($name_to_save) > 12) ) {
 		$errors = "Enter name! (Max: 12)";
 	} else {
-		$STH = $pdo->prepare("INSERT INTO comment (name,message,parent_id) VALUES (:name,:message,:parent_id);");
-		$STH->bindParam(':message',$msg_to_save);
-		$STH->bindParam(':name',$name_to_save);
-		$STH->bindParam(':parent_id',$id_to_answer);
-		$STH->execute();
+	    addComment( $name_to_save, $msg_to_save, $id_to_answer );
 		$is_answered = true;
     }
 }
