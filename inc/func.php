@@ -46,6 +46,14 @@ function viewComments($parent_id, $level) {
 }
 
 /**
+ * Вывод комментариев
+ * Для использовании в шаблоне вывода
+ */
+function showComments() {
+    viewComments(0, 0);
+}
+
+/**
  * Удаление дерева комментариев
  * @param Integer $parent_id - id комментария
  */
@@ -112,4 +120,5 @@ function getComment($id){
     $rows->execute();
     return $rows->fetch();
 }
+
 

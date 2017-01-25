@@ -6,7 +6,7 @@ if($errors != '')
 }
 if($is_success)
 {
-echo '<div class="msg">Success!<br/>You will redirect to main page after 2 seconds.</div>';
+echo '<div class="msg">Success!<br/></div>';
 }
 else { ?>
 <form action="?" method="POST">

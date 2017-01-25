@@ -9,7 +9,14 @@ if($errors != '') echo '<div class="error">'.$errors.'</div>';
 	<button name="add">Add</button>
 	<button name="refresh">Refresh</button>
 </form>
+
 <div class="head">Comments:</div>
+
 <?php  
-viewComments(0, 0);
+showComments(); // Выводим коментарии
+if($is_admin) {
+	echo '<div class="msg"><a href="/admin/logout.php">Logout</a></div>';
+} else {
+	echo '<div class="msg"><a href="/admin/login.php">Sign in</a></div>';
+}
 ?>

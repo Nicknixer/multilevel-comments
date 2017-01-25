@@ -9,6 +9,6 @@ if($is_admin) {
 <br/>
 <b>Message</b>: <?=$comment['message']; ?> 
 <?php if($level < $max_comments_level-1) { ?>
-<br/><a href="answer.php?id=<?=$comment['id']; ?>">Answer</a>
+<br/><img src="/img/answer.png" width="12" height="12" alt="x"/><a href="answer.php?id=<?=$comment['id']; ?>">Answer</a>
 <?php } ?>
 </div>
